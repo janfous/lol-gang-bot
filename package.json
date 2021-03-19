@@ -1,0 +1,17 @@
+{
+  "name": "lol-gang-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "j.fous@email.cz",
+  "license": "BSD-3-Clause"
+}
