@@ -4,68 +4,66 @@ module.exports = {
     async execute(message, args) {
 
         const Discord = require('discord.js');
-        const fs = require('fs');
-        let data;
+        const Database = require('@replit/database');
+        const db = new Database();
 
-        fs.readFile('./data/based.json', 'utf-8', function (err, data) {
-            if (err) throw err;
+        let reg = new RegExp("<@!([0-9]+)>");
 
-            data = JSON.parse(data);
+        let id = args[0];
+        let match = args[0].match(reg);
 
-            if (args.length >= 1) {
+        if (match.length !== 0) {
+            id = match[1];
+        }
 
-                let reg = new RegExp("<@!([0-9]+)>");
+        let count = await db.get("based_" + id + "_count");
+        let last = await db.get("based_" + id + "_last");
 
-                let id = args[0];
-                let match = args[0].match(reg);
-
-                if (match.length !== 0) {
-                    id = match[1];
-                }
-
-                console.log(id);
+        if (args.length >= 1) {
 
 
-                if (data.users[id] === undefined) {
-                    data.users[id] = {};
-                    data.users[id].count = 0;
-                }
+            console.log(id);
 
-                data.users[id].count++;
 
-                data.users[id].last = Date.now();
-
-                let data_w = JSON.stringify(data);
-
-                fs.writeFileSync("./data/based.json", data_w);
-
+            if (data.users[id] === undefined) {
+                data.users[id] = {};
+                data.users[id].count = 0;
             }
 
-            //todo fix vypisuje autora zprávy, ne vyhledávanou osobu
+            data.users[id].count++;
 
-            if (data.users[message.author.id] && data.users[message.author.id].count) {
+            data.users[id].last = Date.now();
 
-                var last_based = new Date(0);
-                last_based.setUTCMilliseconds(data.users[message.author.id].last);
+            let data_w = JSON.stringify(data);
 
-                var last_based_str = last_based.getFullYear() + "-" + (last_based.getMonth()+1) + "-" + last_based.getDate() + " " + last_based.getHours() + ":" + last_based.getMinutes();
+            fs.writeFileSync("./data/based.json", data_w);
 
-                const embed = new Discord.MessageEmbed()
-                    .setColor("#fcba03")
-                    .setTitle(message.author.username)
-                    .addField("Based count", data.users[message.author.id].count, true)
-                    .addField("Last Based At", last_based_str, true);
+        }
 
-                console.log(message);
-                console.log(embed);
+        //todo fix vypisuje autora zprávy, ne vyhledávanou osobu
 
-                message.channel.send({embed});
+        if (data.users[message.author.id] && data.users[message.author.id].count) {
 
-            } else {
-                message.channel.send("User is not yet based");
-            }
+            var last_based = new Date(0);
+            last_based.setUTCMilliseconds(data.users[message.author.id].last);
+
+            var last_based_str = last_based.getFullYear() + "-" + (last_based.getMonth() + 1) + "-" + last_based.getDate() + " " + last_based.getHours() + ":" + last_based.getMinutes();
+
+            const embed = new Discord.MessageEmbed()
+                .setColor("#fcba03")
+                .setTitle(message.author.username)
+                .addField("Based count", data.users[message.author.id].count, true)
+                .addField("Last Based At", last_based_str, true);
+
+            console.log(message);
+            console.log(embed);
+
+            message.channel.send({embed});
+
+        } else {
+            message.channel.send("User is not yet based");
+        }
 
 
-        });
     },
 };
