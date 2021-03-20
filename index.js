@@ -1,4 +1,4 @@
-const Discord = require('Discord.js');
+const Discord = require('discord.js');
 const env = require('dotenv');
 const fs = require('fs');
 
