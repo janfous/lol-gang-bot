@@ -37,6 +37,10 @@ client.on("message", message => {
         case `based`:
             client.commands.get("based").execute(message, args);
             break;
+        // Stocks and cryptocurrency checker
+        case `stock`:
+            client.commands.get("stocks").execute(message, args);
+            break;
     }
 
     // GoogleItForYou
