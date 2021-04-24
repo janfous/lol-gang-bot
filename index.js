@@ -31,8 +31,14 @@ client.on("message", message => {
 
     const args = message.content.slice(prefix.length).trim().split(' ');
 
+    switch (command) {
+        // Based counter
+        case `based`:
+            client.commands.get("based").execute(message, args);
+            break;
+    }
+
     // GoogleItForYou
     client.commands.get("google").execute(message, args);
-
 });
 
