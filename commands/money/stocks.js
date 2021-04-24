@@ -12,11 +12,16 @@ module.exports = {
                 modules: ['price']
             }, function (err, result) {
                 if (result) {
-                    const messageBlock = new Discord.MessageEmbed()
-                        .setColor("ORANGE")
-                        .addField(result.price.symbol, result.price.regularMarketPrice + result.price.currencySymbol)
+                    if (result.price.quoteType != 'CRYPTOCURRENCY') {
+                        const messageBlock = new Discord.MessageEmbed()
+                            .setColor("ORANGE")
+                            .addField(result.price.symbol, result.price.regularMarketPrice + result.price.currencySymbol)
 
-                    message.channel.send(messageBlock);
+                        message.channel.send(messageBlock);
+                    }
+                    else {
+                        message.channel.send("Not a stock!");
+                    }
                 }
                 else {
                     console.log(err)
