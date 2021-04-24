@@ -36,6 +36,10 @@ client.on("message", message => {
         case `based`:
             client.commands.get("based").execute(message, args);
             break;
+        //RPGBot
+        case `fight`:
+            client.commands.get("based").execute(message, args);
+            break;
     }
 
 });
