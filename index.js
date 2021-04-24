@@ -33,10 +33,13 @@ client.on("message", message => {
     const command = args.shift().toLowerCase();
 
     switch (command) {
+        // Based counter
         case `based`:
             client.commands.get("based").execute(message, args);
             break;
     }
 
+    // GoogleItForYou
+    client.commands.get("google").execute(message, args);
 });
 
