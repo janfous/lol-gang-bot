@@ -30,6 +30,7 @@ client.on("message", message => {
     }
 
     const args = message.content.slice(prefix.length).trim().split(' ');
+    const command = args.shift().toLowerCase();
 
     switch (command) {
         // Based counter
