@@ -21,7 +21,7 @@ module.exports = {
         let reg6 = new RegExp("(co je za měsíc$|what month is it)", "i");
 
         const questionForms = ["co je", "what is", "what the fuck is", "wtf is", "what tf is", "kdo je", "who is", "who tf is", "who the fuck is",
-            "who the hell is", "what the hell is", "kde je", "where is", "where the fuck is", "where tf is"]
+                                "who the hell is", "what the hell is", "kde je", "where is", "where the fuck is", "where tf is"]
 
         if (message.content.match(reg1)) {
             message.channel.send(".. oh baby, don't hurt me\n" +
